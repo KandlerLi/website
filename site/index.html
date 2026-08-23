@@ -13,11 +13,23 @@
     <div>
       <h1>Julian Kandler</h1>
       <p class="title">Enterprise Architect</p>
-      <p class="tagline">Full stack — infrastructure, back end, front end, CI/CD</p>
+      <p class="tagline">DevOps &amp; infrastructure — Linux, Terraform, Ansible, AWS, CI/CD</p>
+      <p class="links"><a href="https://github.com/KandlerLi">github.com/KandlerLi</a></p>
     </div>
   </header>
 
   <main>
+    <section aria-labelledby="profile-heading">
+      <h2 id="profile-heading" class="visually-hidden">Profile</h2>
+      <p class="profile">
+        Enterprise Architect with professional IT experience since 2017, focused on Linux,
+        Infrastructure as Code, automation, containerization, and DevOps. Hands-on with Terraform,
+        Ansible, Docker/Podman, GitHub Actions, and AWS — and builds and operates self-hosted
+        infrastructure projects outside of work to explore the same practices end to end,
+        including the site you're looking at right now.
+      </p>
+    </section>
+
     <section aria-labelledby="experience-heading">
       <h2 id="experience-heading">Experience</h2>
 
@@ -100,17 +112,67 @@
       </article>
     </section>
 
+    <section aria-labelledby="projects-heading">
+      <h2 id="projects-heading">Personal projects</h2>
+      <p class="section-intro">
+        Home-infrastructure projects outside of client work, built to explore DevOps, cloud, and
+        self-hosted systems in practice rather than just in theory.
+      </p>
+
+      <div class="project">
+        <h4>Home infrastructure as code</h4>
+        <ul>
+          <li>Manage a home server and its services entirely through Terraform and Ansible, version-controlled in Git.</li>
+          <li>Provision AWS resources (Route 53, S3, CloudFront, IAM/OIDC) and GitHub repository configuration from the same codebase — no manual changes to live infrastructure.</li>
+          <li>This site is deployed exactly this way: Terraform-managed S3 and CloudFront, GitHub Actions CI/CD.</li>
+        </ul>
+        <p class="skills-used">Terraform · Ansible · AWS · GitHub Actions · Debian</p>
+      </div>
+
+      <div class="project">
+        <h4>Self-hosted GitHub Actions runner</h4>
+        <ul>
+          <li>Designed a fully automated Debian VM, provisioned with Ansible, to host a dedicated self-hosted GitHub Actions runner.</li>
+          <li>Configured dedicated disk storage placement for the VM and runner data.</li>
+        </ul>
+        <p class="skills-used">Ansible · Debian · Virtualization · GitHub Actions</p>
+      </div>
+
+      <div class="project">
+        <h4>Self-hosted Nextcloud platform</h4>
+        <ul>
+          <li>Operate a private Nextcloud instance as a personal cloud-storage replacement, containerized with Docker on a Debian home server.</li>
+          <li>Designed the storage architecture across SSD and HDD storage, including Linux permission/UID-GID handling and bind mounts.</li>
+          <li>Diagnosed an IPv6 DNS misconfiguration that was silently degrading WebDAV performance — after the fix, an operation that took roughly two minutes completed in about one second.</li>
+        </ul>
+        <p class="skills-used">Docker · Debian · DNS · IPv4/IPv6 · TLS · WebDAV</p>
+      </div>
+
+      <div class="project">
+        <h4>Personal finance automation</h4>
+        <ul>
+          <li>Built a Python workflow that reads a personal budget spreadsheet, drives a browser via Playwright to render a chart, and uploads the result to Nextcloud automatically.</li>
+          <li>Runs on a schedule behind a cheap change-detection check, so it only does the expensive work when the underlying data actually changed.</li>
+        </ul>
+        <p class="skills-used">Python · openpyxl · Playwright · requests · WebDAV</p>
+      </div>
+    </section>
+
     <section aria-labelledby="skills-heading">
       <h2 id="skills-heading">Skills</h2>
       <dl class="skills">
-        <dt>Infrastructure</dt>
-        <dd>AWS (API Gateway, EKS, RDS, Lambda, Route 53, Fargate, CodePipeline) · Docker · Terraform</dd>
+        <dt>Infrastructure &amp; cloud</dt>
+        <dd>AWS (API Gateway, EKS, RDS, Lambda, Route 53, Fargate, CodePipeline) · Docker · Podman · Terraform · Ansible</dd>
+        <dt>Linux &amp; systems</dt>
+        <dd>Debian · SUSE Linux Enterprise · Bash / shell scripting · DNS, TLS &amp; network troubleshooting</dd>
         <dt>CI/CD</dt>
-        <dd>GitHub Actions · Concourse · Jenkins</dd>
+        <dd>GitHub Actions (incl. self-hosted runners) · Concourse · Jenkins</dd>
+        <dt>Security</dt>
+        <dd>GPG · pass · SOPS · Trivy · Black Duck</dd>
         <dt>Languages &amp; frameworks</dt>
         <dd>Java · Kotlin · Python · Spring Boot · Maven · Gradle · TypeScript · JavaScript · Angular · Node.js · Grunt</dd>
         <dt>Tools</dt>
-        <dd>IntelliJ · VS Code · WSL2 · Git · GitHub · Jira · Confluence</dd>
+        <dd>IntelliJ · VS Code (Dev Containers) · WSL2 · Git · GitHub · Jira · Confluence</dd>
         <dt>Methodologies</dt>
         <dd>Agile · Scrum · SAFe · DevOps</dd>
       </dl>

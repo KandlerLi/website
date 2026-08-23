@@ -72,6 +72,38 @@ main,
   color: var(--muted);
 }
 
+.links {
+  margin: 0.5rem 0 0;
+}
+
+.links a {
+  color: var(--accent);
+  text-decoration: none;
+}
+
+.links a:hover {
+  text-decoration: underline;
+}
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+}
+
+.profile {
+  color: var(--muted);
+  margin: 0 0 1rem;
+}
+
+.section-intro {
+  color: var(--muted);
+  margin: 0.25rem 0 1rem;
+}
+
 h2 {
   font-size: 1.3rem;
   border-bottom: 1px solid var(--border);
