@@ -48,16 +48,12 @@ roles are owned by `/home/julian/projects/bootstrap/repo-infra`. That
 Terraform root runs only from a trusted local controller with a
 short-lived administrative or bootstrap identity.
 
-After bootstrapping or changing those roles, set these non-secret
-repository variables under **Settings → Secrets and variables → Actions →
-Variables**:
-
-| Repository variable | Value |
-|---|---|
-| `AWS_ROLE_ARN` | `terraform -chdir=../repo-infra output -raw website_github_actions_role_arn` (or read the role ARN directly from `repo-infra`'s apply output) |
-| `AWS_PLAN_ROLE_ARN` | Same, for the plan role |
-| `AWS_ACCOUNT_ID` | The AWS account ID |
-| `ROUTE53_ZONE_ID` | The same hosted-zone ID used locally, e.g. `Z07879811I86VC8PAL8HX` |
+`repo-infra`'s apply also sets the `AWS_ROLE_ARN`/`AWS_PLAN_ROLE_ARN`/
+`AWS_ACCOUNT_ID`/`ROUTE53_ZONE_ID` GitHub Actions repository variables
+itself (`modules/repo`'s `github_actions_variable` resources, wired to
+the real role ARNs it just created plus this repository's
+`action_variables` entry in `config.yml`) — nothing needs to be pasted
+into the GitHub UI by hand.
 
 ## GitHub Actions credentials
 

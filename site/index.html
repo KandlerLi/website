@@ -4,12 +4,203 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Julian Kandler</title>
+  <meta name="description" content="Julian Kandler — Enterprise Architect. Infrastructure, backend, frontend, and CI/CD.">
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
+  <header class="hero">
+    <img class="portrait" src="baozi.jpg" alt="Julian Kandler" width="600" height="800">
+    <div>
+      <h1>Julian Kandler</h1>
+      <p class="title">Enterprise Architect</p>
+      <p class="tagline">DevOps &amp; infrastructure — Linux, Terraform, Ansible, AWS, CI/CD</p>
+      <p class="links"><a href="https://github.com/KandlerLi">github.com/KandlerLi</a></p>
+    </div>
+  </header>
+
   <main>
-    <h1>Julian Kandler</h1>
-    <p>CV and projects coming soon.</p>
+    <section aria-labelledby="profile-heading">
+      <h2 id="profile-heading" class="visually-hidden">Profile</h2>
+      <p class="profile">
+        Enterprise Architect with professional IT experience since 2017, focused on Linux,
+        Infrastructure as Code, automation, containerization, and DevOps. Hands-on with Terraform,
+        Ansible, Docker/Podman, GitHub Actions, and AWS — and builds and operates self-hosted
+        infrastructure projects outside of work to explore the same practices end to end,
+        including the site you're looking at right now.
+      </p>
+    </section>
+
+    <section aria-labelledby="experience-heading">
+      <h2 id="experience-heading">Experience</h2>
+
+      <article class="employer">
+        <h3>Capgemini <span class="dates">Jul 2022 – present</span></h3>
+        <p class="role">Enterprise Architect — Cloud Architect <span class="dates">Apr 2024 – present</span> · Cloud Architect <span class="dates">Oct 2022 – Dec 2022</span> · Tech Lead <span class="dates">Jul 2022 – Sep 2022</span></p>
+
+        <div class="project">
+          <h4>Infrastructure change coordination <span class="dates">Apr 2024 – present</span></h4>
+          <ul>
+            <li>Coordinate infrastructure changes, imports, and reshaping as Cloud Architect.</li>
+          </ul>
+        </div>
+
+        <div class="project">
+          <h4>Vehicle data platform reliability <span class="dates">Sep 2023 – Dec 2023</span></h4>
+          <ul>
+            <li>Received, processed, stored, and provided vehicle data.</li>
+            <li>Ensured the infrastructure was production-ready for go-live.</li>
+            <li>Built automated snapshots and continuous backups of the database.</li>
+            <li>Wrote disaster-recovery runbooks and set up monitoring and alerting.</li>
+          </ul>
+          <p class="skills-used">Terraform · Datadog · AWS Backup · GitHub Actions</p>
+        </div>
+
+        <div class="project">
+          <h4>Multi-account AWS infrastructure rollout <span class="dates">Jul 2022 – Aug 2023</span></h4>
+          <ul>
+            <li>Designed a scalable solution for rolling out infrastructure across up to 400 AWS accounts.</li>
+            <li>Led conceptualization and development, coordinating with business and dev-team stakeholders.</li>
+          </ul>
+          <p class="skills-used">Terraform · GitHub Actions · AWS API Gateway · EventBridge · CodeBuild</p>
+        </div>
+      </article>
+
+      <article class="employer">
+        <h3>Exxeta AG <span class="dates">Jan 2017 – Jun 2022</span></h3>
+        <p class="role">Senior Consultant <span class="dates">Jan 2020 – Jun 2022</span> · Consultant <span class="dates">Jan 2017 – Dec 2019</span></p>
+
+        <div class="project">
+          <h4>Vehicle workshop appointment portal <span class="dates">Feb 2020 – Jun 2022</span></h4>
+          <ul>
+            <li>Built a new portal for scheduling vehicle workshop appointments from the ground up.</li>
+            <li>Developed front-end and back-end application logic, with infrastructure provisioned via CI/CD.</li>
+            <li>Set up automated testing and monitoring.</li>
+          </ul>
+          <p class="skills-used">Angular · Spring Boot · Kotlin · Concourse · New Relic · AWS</p>
+        </div>
+
+        <div class="project">
+          <h4>Retail sample planning portal <span class="dates">May 2019 – Dec 2019</span></h4>
+          <ul>
+            <li>Built a portal to plan and control retail sample scheduling.</li>
+            <li>Developed the front-end and back-end application logic.</li>
+          </ul>
+          <p class="skills-used">Angular · Spring Boot · PCF</p>
+        </div>
+
+        <div class="project">
+          <h4>Customer vehicle-profile portal <span class="dates">Apr 2017 – Apr 2019</span></h4>
+          <ul>
+            <li>Extended a customer portal for managing and configuring vehicle profiles.</li>
+            <li>Developed front-end and back-end application logic.</li>
+          </ul>
+          <p class="skills-used">Angular · Spring Boot · PCF</p>
+        </div>
+
+        <div class="project">
+          <h4>Reusable CMS components <span class="dates">Jan 2017 – Mar 2017</span></h4>
+          <ul>
+            <li>Built new, reusable components for a content-management system.</li>
+          </ul>
+          <p class="skills-used">Adobe AEM · Java · JavaScript</p>
+        </div>
+      </article>
+
+      <article class="employer">
+        <h3>HUK-Coburg Versicherungsgruppe <span class="dates">Feb 2013 – Dec 2013</span></h3>
+        <p class="role">Internship / Working Student</p>
+      </article>
+    </section>
+
+    <section aria-labelledby="projects-heading">
+      <h2 id="projects-heading">Personal projects</h2>
+      <p class="section-intro">
+        Home-infrastructure projects outside of client work, built to explore DevOps, cloud, and
+        self-hosted systems in practice rather than just in theory.
+      </p>
+
+      <div class="project">
+        <h4>Home infrastructure as code</h4>
+        <ul>
+          <li>Manage a home server and its services entirely through Terraform and Ansible, version-controlled in Git.</li>
+          <li>Provision AWS resources (Route 53, S3, CloudFront, IAM/OIDC) and GitHub repository configuration from the same codebase — no manual changes to live infrastructure.</li>
+          <li>This site is deployed exactly this way: Terraform-managed S3 and CloudFront, GitHub Actions CI/CD.</li>
+        </ul>
+        <p class="skills-used">Terraform · Ansible · AWS · GitHub Actions · Debian</p>
+      </div>
+
+      <div class="project">
+        <h4>Self-hosted GitHub Actions runner</h4>
+        <ul>
+          <li>Designed a fully automated Debian VM, provisioned with Ansible, to host a dedicated self-hosted GitHub Actions runner.</li>
+          <li>Configured dedicated disk storage placement for the VM and runner data.</li>
+        </ul>
+        <p class="skills-used">Ansible · Debian · Virtualization · GitHub Actions</p>
+      </div>
+
+      <div class="project">
+        <h4>Self-hosted Nextcloud platform</h4>
+        <ul>
+          <li>Operate a private Nextcloud instance as a personal cloud-storage replacement, containerized with Docker on a Debian home server.</li>
+          <li>Designed the storage architecture across SSD and HDD storage, including Linux permission/UID-GID handling and bind mounts.</li>
+          <li>Diagnosed an IPv6 DNS misconfiguration that was silently degrading WebDAV performance — after the fix, an operation that took roughly two minutes completed in about one second.</li>
+        </ul>
+        <p class="skills-used">Docker · Debian · DNS · IPv4/IPv6 · TLS · WebDAV</p>
+      </div>
+
+      <div class="project">
+        <h4>Personal finance automation</h4>
+        <ul>
+          <li>Built a Python workflow that reads a personal budget spreadsheet, drives a browser via Playwright to render a chart, and uploads the result to Nextcloud automatically.</li>
+          <li>Runs on a schedule behind a cheap change-detection check, so it only does the expensive work when the underlying data actually changed.</li>
+        </ul>
+        <p class="skills-used">Python · openpyxl · Playwright · requests · WebDAV</p>
+      </div>
+    </section>
+
+    <section aria-labelledby="skills-heading">
+      <h2 id="skills-heading">Skills</h2>
+      <dl class="skills">
+        <dt>Infrastructure &amp; cloud</dt>
+        <dd>AWS (API Gateway, EKS, RDS, Lambda, Route 53, Fargate, CodePipeline) · Docker · Podman · Terraform · Ansible</dd>
+        <dt>Linux &amp; systems</dt>
+        <dd>Debian · SUSE Linux Enterprise · Bash / shell scripting · DNS, TLS &amp; network troubleshooting</dd>
+        <dt>CI/CD</dt>
+        <dd>GitHub Actions (incl. self-hosted runners) · Concourse · Jenkins</dd>
+        <dt>Security</dt>
+        <dd>GPG · pass · SOPS · Trivy · Black Duck</dd>
+        <dt>Languages &amp; frameworks</dt>
+        <dd>Java · Kotlin · Python · Spring Boot · Maven · Gradle · TypeScript · JavaScript · Angular · Node.js · Grunt</dd>
+        <dt>Tools</dt>
+        <dd>IntelliJ · VS Code (Dev Containers) · WSL2 · Git · GitHub · Jira · Confluence</dd>
+        <dt>Methodologies</dt>
+        <dd>Agile · Scrum · SAFe · DevOps</dd>
+      </dl>
+    </section>
+
+    <section aria-labelledby="education-heading">
+      <h2 id="education-heading">Education</h2>
+      <ul class="plain-list">
+        <li>
+          <strong>M.Sc. Information Technology and Enterprise Applications</strong>
+          <span class="dates">2015 – 2017</span><br>
+          Hochschule Coburg
+        </li>
+        <li>
+          <strong>B.Sc. Information Technology</strong>
+          <span class="dates">2009 – 2015</span><br>
+          Hochschule Coburg
+        </li>
+      </ul>
+    </section>
+
+    <section aria-labelledby="languages-heading">
+      <h2 id="languages-heading">Languages</h2>
+      <ul class="plain-list">
+        <li>German — native</li>
+        <li>English — business fluent</li>
+      </ul>
+    </section>
   </main>
 </body>
 </html>
