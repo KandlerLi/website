@@ -4,12 +4,134 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Julian Kandler</title>
+  <meta name="description" content="Julian Kandler — Enterprise Architect. Infrastructure, backend, frontend, and CI/CD.">
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
+  <header class="hero">
+    <img class="portrait" src="baozi.jpg" alt="Julian Kandler" width="600" height="800">
+    <div>
+      <h1>Julian Kandler</h1>
+      <p class="title">Enterprise Architect</p>
+      <p class="tagline">Full stack — infrastructure, back end, front end, CI/CD</p>
+    </div>
+  </header>
+
   <main>
-    <h1>Julian Kandler</h1>
-    <p>CV and projects coming soon.</p>
+    <section aria-labelledby="experience-heading">
+      <h2 id="experience-heading">Experience</h2>
+
+      <article class="employer">
+        <h3>Capgemini <span class="dates">Jul 2022 – present</span></h3>
+        <p class="role">Enterprise Architect</p>
+
+        <div class="project">
+          <h4>Vehicle data platform reliability <span class="dates">Sep 2023 – Dec 2023</span></h4>
+          <ul>
+            <li>Received, processed, stored, and provided vehicle data.</li>
+            <li>Ensured the infrastructure was production-ready for go-live.</li>
+            <li>Built automated snapshots and continuous backups of the database.</li>
+            <li>Wrote disaster-recovery runbooks and set up monitoring and alerting.</li>
+          </ul>
+          <p class="skills-used">Terraform · Datadog · AWS Backup · GitHub Actions</p>
+        </div>
+
+        <div class="project">
+          <h4>Multi-account AWS infrastructure rollout <span class="dates">Jul 2022 – Aug 2023</span></h4>
+          <ul>
+            <li>Designed a scalable solution for rolling out infrastructure across up to 400 AWS accounts.</li>
+            <li>Led conceptualization and development, coordinating with business and dev-team stakeholders.</li>
+          </ul>
+          <p class="skills-used">Terraform · GitHub Actions · AWS API Gateway · EventBridge · CodeBuild</p>
+        </div>
+      </article>
+
+      <article class="employer">
+        <h3>Exxeta AG <span class="dates">Jan 2017 – Jun 2022</span></h3>
+        <p class="role">Senior Consultant <span class="dates">Jan 2020 – Jun 2022</span> · Consultant <span class="dates">Jan 2017 – Dec 2019</span></p>
+
+        <div class="project">
+          <h4>Vehicle workshop appointment portal <span class="dates">Feb 2020 – Jun 2022</span></h4>
+          <ul>
+            <li>Built a new portal for scheduling vehicle workshop appointments from the ground up.</li>
+            <li>Developed front-end and back-end application logic, with infrastructure provisioned via CI/CD.</li>
+            <li>Set up automated testing and monitoring.</li>
+          </ul>
+          <p class="skills-used">Angular · Spring Boot · Kotlin · Concourse · New Relic · AWS</p>
+        </div>
+
+        <div class="project">
+          <h4>Retail sample planning portal <span class="dates">May 2019 – Dec 2019</span></h4>
+          <ul>
+            <li>Built a portal to plan and control retail sample scheduling.</li>
+            <li>Developed the front-end and back-end application logic.</li>
+          </ul>
+          <p class="skills-used">Angular · Spring Boot · PCF</p>
+        </div>
+
+        <div class="project">
+          <h4>Customer vehicle-profile portal <span class="dates">Apr 2017 – Apr 2019</span></h4>
+          <ul>
+            <li>Extended a customer portal for managing and configuring vehicle profiles.</li>
+            <li>Developed front-end and back-end application logic.</li>
+          </ul>
+          <p class="skills-used">Angular · Spring Boot · PCF</p>
+        </div>
+
+        <div class="project">
+          <h4>Reusable CMS components <span class="dates">Jan 2017 – Mar 2017</span></h4>
+          <ul>
+            <li>Built new, reusable components for a content-management system.</li>
+          </ul>
+          <p class="skills-used">Adobe AEM · Java · JavaScript</p>
+        </div>
+      </article>
+
+      <article class="employer">
+        <h3>HUK-Coburg Versicherungsgruppe <span class="dates">Feb 2013 – Dec 2013</span></h3>
+        <p class="role">Internship / Working Student</p>
+      </article>
+    </section>
+
+    <section aria-labelledby="skills-heading">
+      <h2 id="skills-heading">Skills</h2>
+      <dl class="skills">
+        <dt>Infrastructure</dt>
+        <dd>AWS · Docker · Terraform</dd>
+        <dt>CI/CD</dt>
+        <dd>GitHub Actions · Concourse · Jenkins</dd>
+        <dt>Languages &amp; frameworks</dt>
+        <dd>Java · Kotlin · Spring Boot · Maven · Gradle · TypeScript · JavaScript · Angular · Node.js · Grunt</dd>
+        <dt>Tools</dt>
+        <dd>IntelliJ · VS Code · WSL2 · Git · Jira · Confluence</dd>
+        <dt>Methodologies</dt>
+        <dd>Agile · Scrum · SAFe</dd>
+      </dl>
+    </section>
+
+    <section aria-labelledby="education-heading">
+      <h2 id="education-heading">Education</h2>
+      <ul class="plain-list">
+        <li>
+          <strong>M.Sc. Information Technology and Enterprise Applications</strong>
+          <span class="dates">2015 – 2017</span><br>
+          Hochschule Coburg
+        </li>
+        <li>
+          <strong>B.Sc. Information Technology</strong>
+          <span class="dates">2009 – 2015</span><br>
+          Hochschule Coburg
+        </li>
+      </ul>
+    </section>
+
+    <section aria-labelledby="languages-heading">
+      <h2 id="languages-heading">Languages</h2>
+      <ul class="plain-list">
+        <li>German — native</li>
+        <li>English — business fluent</li>
+      </ul>
+    </section>
   </main>
 </body>
 </html>
