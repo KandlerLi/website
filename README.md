@@ -67,11 +67,14 @@ CloudFront cache invalidation.
 
 ## Runner
 
-Unlike `dyndns`, this repository intentionally uses GitHub-hosted runners
-(`runs-on: ubuntu-latest`), not the self-hosted home runner. The entire
-point of hosting this site on AWS is to stop depending on the home
-network/server for it to be reachable — tying its deploy pipeline back to
-the home runner would partially undo that.
+Uses the self-hosted home runner (`[self-hosted, home, debian]`), same as
+`dyndns`. Originally deployed on GitHub-hosted runners specifically to
+keep the deploy pipeline independent of home-network uptime, since the
+site's own reachability (CloudFront/S3) already doesn't depend on it —
+switched to self-hosted on 2026-08-23 at the user's explicit request,
+after being shown that tradeoff directly: a homeserver outage now also
+blocks shipping a content or infra fix to this site, not just home
+services. See ADR 0016's Update section.
 
 ## Local validation
 
