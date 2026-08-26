@@ -55,6 +55,7 @@ jobs:
       credentials:
         username: ${{ github.actor }}
         password: ${{ secrets.GITHUB_TOKEN }}
+      options: --network host
     permissions:
       contents: read
       id-token: write
@@ -114,3 +115,7 @@ jobs:
           aws cloudfront create-invalidation \
             --distribution-id "$(terraform output -raw distribution_id)" \
             --paths '/*'
+
+      - name: Fix workspace permissions for the next job
+        if: always()
+        run: chmod -R a+rwX "$GITHUB_WORKSPACE"
