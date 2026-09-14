@@ -14,35 +14,31 @@ data "aws_kms_alias" "shared" {
   name = "alias/shared"
 }
 
+#trivy:ignore:AVD-AWS-0320
 resource "aws_s3_bucket" "site" {
-  # AWS-0320 (bucket name not DNS-compliant) rename to jkandler-website
-  # REVERTED here, deliberately, after two failed live attempts
-  # (2026-09-14) -- back to the original, still-live www.jkandler.de so
-  # this apply is a plain in-place update (restoring the policy/
-  # access-block/ownership-controls the first attempt destroyed) rather
-  # than another risky replace. What went wrong both times:
-  #
-  # 1st attempt: Terraform's default replacement order is
-  # destroy-old-then-create-new. It destroyed the old bucket's policy,
-  # public access block, and ownership controls, then failed to delete
-  # the bucket itself (BucketNotEmpty -- real site content in it),
-  # leaving the live bucket without a policy CloudFront's OAC could use.
-  #
-  # 2nd attempt added force_destroy = true and create_before_destroy,
-  # but hit the same BucketNotEmpty error again: force_destroy only
-  # takes effect for how a resource *instance* gets destroyed if it was
-  # already recorded in *that instance's* own state. The old
-  # www.jkandler.de instance's state never had force_destroy = true
-  # written to it (only the new instance being created would get it),
-  # so its destroy still read the old, unset value.
-  #
-  # The actual fix is a genuine two-step change, not one PR: this PR
-  # only adds force_destroy = true to the *current* bucket (an in-place
-  # update, no rename) so it's confirmed recorded in state. A separate,
-  # later PR can then safely retry the rename -- at that point the old
-  # instance's destroy will correctly read force_destroy = true.
+  # AWS-0320 (bucket name not DNS-compliant) deliberately NOT fixed --
+  # stays www.jkandler.de. A rename to jkandler-website was attempted
+  # live 2026-09-14 and reverted after real production impact: two
+  # failed applies (Terraform's default destroy-then-create replacement
+  # order tore down the old bucket's policy/access-block/ownership-
+  # controls before failing to delete the non-empty bucket; then
+  # force_destroy didn't help because it wasn't recorded on the *old*
+  # instance's own state), followed by CloudFront's origin briefly
+  # pointing at a bucket that no longer existed, a stuck state lock from
+  # a credential expiry mid-apply, and a manual `terraform import`/state
+  # surgery to recover. Suppressed rather than retried: the check's own
+  # underlying concern (TLS certificate name matching on dotted bucket
+  # names) never applied to this architecture in the first place --
+  # this bucket is only ever reached via CloudFront's Origin Access
+  # Control (signed SigV4 requests), never raw virtual-hosted-style
+  # HTTPS directly -- so the risk of repeating this incident for a fix
+  # with no real security benefit here isn't worth it.
   bucket = var.domain_name
 
+  # Left in place after the recovery above -- harmless on a bucket that
+  # isn't being renamed, and means any *future* genuine replacement of
+  # this resource (for an unrelated reason) won't hit the same
+  # unrecorded-force_destroy trap.
   force_destroy = true
 }
 
