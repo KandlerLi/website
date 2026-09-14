@@ -28,6 +28,25 @@ resource "aws_s3_bucket" "site" {
   # deploy pipeline's own post_apply_command (aws s3 sync) re-populates
   # a renamed bucket's content automatically on the next apply.
   bucket = "jkandler-website"
+
+  # Found live 2026-09-14: the first attempt at this rename failed with
+  # BucketNotEmpty -- www.jkandler.de holds real site content, and
+  # Terraform's default replacement order is destroy-old-then-create-new,
+  # which also means it tore down the old bucket's own policy/versioning/
+  # logging/encryption sub-resources before ever reaching (and failing
+  # at) the bucket deletion itself, without the new bucket existing yet.
+  # force_destroy is safe specifically for this bucket: its content is
+  # fully reproducible from site/ via the deploy pipeline's own
+  # post_apply_command, not irreplaceable data. create_before_destroy
+  # fixes the actual root cause -- the new bucket (with its own policy/
+  # config, and CloudFront repointed to it) now gets fully created
+  # before the old one is touched at all, instead of leaving a window
+  # where neither bucket is correctly configured.
+  force_destroy = true
+
+  lifecycle {
+    create_before_destroy = true
+  }
 }
 
 resource "aws_s3_bucket_public_access_block" "site" {
@@ -37,6 +56,15 @@ resource "aws_s3_bucket_public_access_block" "site" {
   block_public_policy     = true
   ignore_public_acls      = true
   restrict_public_buckets = true
+
+  # Explicit rather than relying on create_before_destroy propagating
+  # automatically from aws_s3_bucket.site above -- Terraform has
+  # documented edge cases where that doesn't happen reliably
+  # (hashicorp/terraform#35446/#35959/#31316), and getting the ordering
+  # wrong here is exactly what broke the first attempt at this rename.
+  lifecycle {
+    create_before_destroy = true
+  }
 }
 
 # Fixes trivy's AWS-0090 -- lets a bad `aws s3 sync --delete` be rolled
@@ -46,6 +74,10 @@ resource "aws_s3_bucket_versioning" "site" {
 
   versioning_configuration {
     status = "Enabled"
+  }
+
+  lifecycle {
+    create_before_destroy = true
   }
 }
 
@@ -58,6 +90,10 @@ resource "aws_s3_bucket_server_side_encryption_configuration" "site" {
       kms_master_key_id = data.aws_kms_alias.shared.target_key_arn
     }
   }
+
+  lifecycle {
+    create_before_destroy = true
+  }
 }
 
 # Fixes trivy's AWS-0089 -- self-logging under a distinct prefix, same
@@ -67,6 +103,10 @@ resource "aws_s3_bucket_logging" "site" {
   bucket        = aws_s3_bucket.site.id
   target_bucket = aws_s3_bucket.site.id
   target_prefix = "access-logs/"
+
+  lifecycle {
+    create_before_destroy = true
+  }
 }
 
 resource "aws_s3_bucket_ownership_controls" "site" {
@@ -74,6 +114,10 @@ resource "aws_s3_bucket_ownership_controls" "site" {
 
   rule {
     object_ownership = "BucketOwnerEnforced"
+  }
+
+  lifecycle {
+    create_before_destroy = true
   }
 }
 
@@ -107,6 +151,10 @@ data "aws_iam_policy_document" "site_bucket" {
 resource "aws_s3_bucket_policy" "site" {
   bucket = aws_s3_bucket.site.id
   policy = data.aws_iam_policy_document.site_bucket.json
+
+  lifecycle {
+    create_before_destroy = true
+  }
 }
 
 # --- Certificate -----------------------------------------------------------
