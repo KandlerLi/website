@@ -15,38 +15,35 @@ data "aws_kms_alias" "shared" {
 }
 
 resource "aws_s3_bucket" "site" {
-  # Deliberately not var.domain_name (a dotted hostname) -- fixes
-  # trivy's AWS-0320 (bucket name not DNS-compliant). Renamed from the
-  # original www.jkandler.de, matching this workspace's own
-  # jkandler-<purpose> naming convention elsewhere (jkandler-terraform-state,
-  # jkandler-cloudtrail-logs). CloudFront reaches this bucket only via
-  # signed SigV4 requests through Origin Access Control, never raw
-  # virtual-hosted-style HTTPS directly to the bucket, so the specific
-  # problem this check guards against (TLS certificate name matching on
-  # dotted bucket names) never applied to this architecture in the first
-  # place -- fixed anyway since Terraform can express it cleanly and the
-  # deploy pipeline's own post_apply_command (aws s3 sync) re-populates
-  # a renamed bucket's content automatically on the next apply.
-  bucket = "jkandler-website"
+  # AWS-0320 (bucket name not DNS-compliant) rename to jkandler-website
+  # REVERTED here, deliberately, after two failed live attempts
+  # (2026-09-14) -- back to the original, still-live www.jkandler.de so
+  # this apply is a plain in-place update (restoring the policy/
+  # access-block/ownership-controls the first attempt destroyed) rather
+  # than another risky replace. What went wrong both times:
+  #
+  # 1st attempt: Terraform's default replacement order is
+  # destroy-old-then-create-new. It destroyed the old bucket's policy,
+  # public access block, and ownership controls, then failed to delete
+  # the bucket itself (BucketNotEmpty -- real site content in it),
+  # leaving the live bucket without a policy CloudFront's OAC could use.
+  #
+  # 2nd attempt added force_destroy = true and create_before_destroy,
+  # but hit the same BucketNotEmpty error again: force_destroy only
+  # takes effect for how a resource *instance* gets destroyed if it was
+  # already recorded in *that instance's* own state. The old
+  # www.jkandler.de instance's state never had force_destroy = true
+  # written to it (only the new instance being created would get it),
+  # so its destroy still read the old, unset value.
+  #
+  # The actual fix is a genuine two-step change, not one PR: this PR
+  # only adds force_destroy = true to the *current* bucket (an in-place
+  # update, no rename) so it's confirmed recorded in state. A separate,
+  # later PR can then safely retry the rename -- at that point the old
+  # instance's destroy will correctly read force_destroy = true.
+  bucket = var.domain_name
 
-  # Found live 2026-09-14: the first attempt at this rename failed with
-  # BucketNotEmpty -- www.jkandler.de holds real site content, and
-  # Terraform's default replacement order is destroy-old-then-create-new,
-  # which also means it tore down the old bucket's own policy/versioning/
-  # logging/encryption sub-resources before ever reaching (and failing
-  # at) the bucket deletion itself, without the new bucket existing yet.
-  # force_destroy is safe specifically for this bucket: its content is
-  # fully reproducible from site/ via the deploy pipeline's own
-  # post_apply_command, not irreplaceable data. create_before_destroy
-  # fixes the actual root cause -- the new bucket (with its own policy/
-  # config, and CloudFront repointed to it) now gets fully created
-  # before the old one is touched at all, instead of leaving a window
-  # where neither bucket is correctly configured.
   force_destroy = true
-
-  lifecycle {
-    create_before_destroy = true
-  }
 }
 
 resource "aws_s3_bucket_public_access_block" "site" {
@@ -56,15 +53,6 @@ resource "aws_s3_bucket_public_access_block" "site" {
   block_public_policy     = true
   ignore_public_acls      = true
   restrict_public_buckets = true
-
-  # Explicit rather than relying on create_before_destroy propagating
-  # automatically from aws_s3_bucket.site above -- Terraform has
-  # documented edge cases where that doesn't happen reliably
-  # (hashicorp/terraform#35446/#35959/#31316), and getting the ordering
-  # wrong here is exactly what broke the first attempt at this rename.
-  lifecycle {
-    create_before_destroy = true
-  }
 }
 
 # Fixes trivy's AWS-0090 -- lets a bad `aws s3 sync --delete` be rolled
@@ -74,10 +62,6 @@ resource "aws_s3_bucket_versioning" "site" {
 
   versioning_configuration {
     status = "Enabled"
-  }
-
-  lifecycle {
-    create_before_destroy = true
   }
 }
 
@@ -90,10 +74,6 @@ resource "aws_s3_bucket_server_side_encryption_configuration" "site" {
       kms_master_key_id = data.aws_kms_alias.shared.target_key_arn
     }
   }
-
-  lifecycle {
-    create_before_destroy = true
-  }
 }
 
 # Fixes trivy's AWS-0089 -- self-logging under a distinct prefix, same
@@ -103,10 +83,6 @@ resource "aws_s3_bucket_logging" "site" {
   bucket        = aws_s3_bucket.site.id
   target_bucket = aws_s3_bucket.site.id
   target_prefix = "access-logs/"
-
-  lifecycle {
-    create_before_destroy = true
-  }
 }
 
 resource "aws_s3_bucket_ownership_controls" "site" {
@@ -114,10 +90,6 @@ resource "aws_s3_bucket_ownership_controls" "site" {
 
   rule {
     object_ownership = "BucketOwnerEnforced"
-  }
-
-  lifecycle {
-    create_before_destroy = true
   }
 }
 
@@ -151,10 +123,6 @@ data "aws_iam_policy_document" "site_bucket" {
 resource "aws_s3_bucket_policy" "site" {
   bucket = aws_s3_bucket.site.id
   policy = data.aws_iam_policy_document.site_bucket.json
-
-  lifecycle {
-    create_before_destroy = true
-  }
 }
 
 # --- Certificate -----------------------------------------------------------
