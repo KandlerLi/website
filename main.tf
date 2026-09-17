@@ -159,6 +159,21 @@ resource "aws_acm_certificate_validation" "site" {
   validation_record_fqdns = [for record in aws_route53_record.cert_validation : record.fqdn]
 }
 
+# --- CloudFront function ----------------------------------------------------
+# Lets pages be linked without a visible file extension (e.g. /card) even
+# though the site is plain static files with no build step -- rewrites
+# extensionless URIs to their .html file and directory-style URIs to their
+# index.html, at the CloudFront edge before the S3 origin ever sees the
+# request.
+
+resource "aws_cloudfront_function" "url_rewrite" {
+  name    = "${replace(var.domain_name, ".", "-")}-url-rewrite"
+  runtime = "cloudfront-js-2.0"
+  comment = "Rewrite extensionless URIs to their .html file"
+  publish = true
+  code    = file("${path.module}/cloudfront-functions/url-rewrite.js")
+}
+
 # --- CloudFront distribution -----------------------------------------------
 
 # AWS-0011 (no WAF): a real WAFv2 web ACL runs ~$5-6/month base plus
@@ -197,6 +212,11 @@ resource "aws_cloudfront_distribution" "site" {
 
     # Managed-CachingOptimized
     cache_policy_id = "658327ea-f89d-4fab-a63d-7e88639e58f6"
+
+    function_association {
+      event_type   = "viewer-request"
+      function_arn = aws_cloudfront_function.url_rewrite.arn
+    }
   }
 
   restrictions {

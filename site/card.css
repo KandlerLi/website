@@ -1,0 +1,77 @@
+.card-page {
+  display: flex;
+  min-height: 100vh;
+  align-items: center;
+  justify-content: center;
+  padding: 1.5rem;
+}
+
+.card {
+  max-width: 22rem;
+  width: 100%;
+  text-align: center;
+  background: var(--card-bg);
+  border: 1px solid var(--border);
+  border-radius: 1rem;
+  padding: 2rem 1.75rem;
+}
+
+.card-portrait {
+  width: 7rem;
+  height: 7rem;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 3px solid var(--border);
+  margin-bottom: 1rem;
+}
+
+.card h1 {
+  margin: 0;
+  font-size: 1.5rem;
+}
+
+.card .title {
+  margin: 0.15rem 0 0;
+  font-weight: 600;
+  color: var(--accent);
+}
+
+.card .tagline {
+  margin: 0.35rem 0 0;
+  color: var(--muted);
+  font-size: 0.9rem;
+}
+
+.card-contacts {
+  list-style: none;
+  margin: 1.5rem 0 0;
+  padding: 0;
+}
+
+.card-contacts li {
+  margin-bottom: 0.5rem;
+}
+
+.card-contacts a {
+  color: var(--accent);
+  text-decoration: none;
+}
+
+.card-contacts a:hover {
+  text-decoration: underline;
+}
+
+.card-save {
+  display: inline-block;
+  margin-top: 1.5rem;
+  padding: 0.6rem 1.25rem;
+  border-radius: 0.5rem;
+  background: var(--accent);
+  color: var(--bg);
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.card-save:hover {
+  opacity: 0.9;
+}
