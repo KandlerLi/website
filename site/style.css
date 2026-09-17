@@ -109,6 +109,16 @@ main,
   font-weight: 700;
   margin-right: auto;
   white-space: nowrap;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.brand-logo {
+  width: 1.75rem;
+  height: 1.75rem;
+  border-radius: 0.4rem;
+  display: block;
 }
 
 .site-nav {
