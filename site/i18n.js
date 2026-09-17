@@ -229,6 +229,12 @@
 
   function detectLang() {
     try {
+      var fromUrl = new URLSearchParams(window.location.search).get("lang");
+      if (fromUrl && SUPPORTED.indexOf(fromUrl) !== -1) return fromUrl;
+    } catch (e) {
+      /* URLSearchParams unsupported -- fall through */
+    }
+    try {
       var stored = localStorage.getItem(LANG_KEY);
       if (stored && SUPPORTED.indexOf(stored) !== -1) return stored;
     } catch (e) {
@@ -236,6 +242,17 @@
     }
     var nav = ((navigator.language || "en").split("-")[0] || "en").toLowerCase();
     return SUPPORTED.indexOf(nav) !== -1 ? nav : "en";
+  }
+
+  function updateUrlLang(lang) {
+    try {
+      var url = new URL(window.location.href);
+      if (url.searchParams.get("lang") === lang) return;
+      url.searchParams.set("lang", lang);
+      window.history.replaceState(null, "", url);
+    } catch (e) {
+      /* ignore -- URL API unsupported (e.g. file://) or blocked */
+    }
   }
 
   function applyLanguage(lang) {
@@ -263,6 +280,8 @@
 
     var select = document.getElementById("lang-select");
     if (select) select.value = lang;
+
+    updateUrlLang(lang);
 
     try {
       localStorage.setItem(LANG_KEY, lang);
