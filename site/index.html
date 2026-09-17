@@ -31,11 +31,11 @@
       </nav>
 
       <div class="topbar-controls">
-        <div class="lang-switcher" role="group" data-i18n-attr="aria-label" data-i18n="a11y.langSwitcher">
-          <button type="button" data-lang-choice="de" lang="de">DE</button>
-          <button type="button" data-lang-choice="en" lang="en">EN</button>
-          <button type="button" data-lang-choice="zh" lang="zh">中文</button>
-        </div>
+        <select class="lang-select" id="lang-select" data-i18n-attr="aria-label" data-i18n="a11y.langSwitcher">
+          <option value="de">DE</option>
+          <option value="en">EN</option>
+          <option value="zh">中文</option>
+        </select>
 
         <button type="button" class="theme-toggle" id="theme-toggle" data-i18n-attr="aria-label" data-i18n="a11y.themeToggle">
           <span class="theme-icon" aria-hidden="true">🌙</span>

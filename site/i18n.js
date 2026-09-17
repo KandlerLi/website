@@ -243,9 +243,8 @@
     var meta = document.querySelector('meta[name="description"]');
     if (meta && dict["meta.description"]) meta.setAttribute("content", dict["meta.description"]);
 
-    document.querySelectorAll("[data-lang-choice]").forEach(function (btn) {
-      btn.setAttribute("aria-pressed", btn.getAttribute("data-lang-choice") === lang ? "true" : "false");
-    });
+    var select = document.getElementById("lang-select");
+    if (select) select.value = lang;
 
     try {
       localStorage.setItem(LANG_KEY, lang);
@@ -255,10 +254,10 @@
   }
 
   function initLangSwitcher() {
-    document.querySelectorAll("[data-lang-choice]").forEach(function (btn) {
-      btn.addEventListener("click", function () {
-        applyLanguage(btn.getAttribute("data-lang-choice"));
-      });
+    var select = document.getElementById("lang-select");
+    if (!select) return;
+    select.addEventListener("change", function () {
+      applyLanguage(select.value);
     });
   }
 
