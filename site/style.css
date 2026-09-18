@@ -293,19 +293,6 @@ main,
   color: var(--muted);
 }
 
-.links {
-  margin: 0.5rem 0 0;
-}
-
-.links a {
-  color: var(--accent);
-  text-decoration: none;
-}
-
-.links a:hover {
-  text-decoration: underline;
-}
-
 .visually-hidden {
   position: absolute;
   width: 1px;
@@ -429,6 +416,31 @@ h2 {
 
 .plain-list li {
   margin-bottom: 0.9rem;
+}
+
+.contact-list a {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  color: var(--fg);
+  text-decoration: none;
+  transition: color 0.15s ease;
+}
+
+.contact-list a:visited {
+  color: var(--fg);
+}
+
+.contact-list a:hover,
+.contact-list a:focus-visible {
+  color: var(--accent);
+}
+
+.contact-icon {
+  width: 1.15em;
+  height: 1.15em;
+  flex: none;
+  fill: currentColor;
 }
 
 main {
