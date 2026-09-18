@@ -147,7 +147,7 @@ main,
   background: var(--card-bg);
   border: 1px solid var(--border);
   border-radius: 0.5rem;
-  padding: 0.25rem 1.5rem 0.25rem 0.6rem;
+  padding: 0.25rem 0.6rem 0.25rem 0.6rem;
   font-size: 0.8rem;
   cursor: pointer;
   color: var(--fg);
@@ -368,6 +368,15 @@ h2 {
   font-weight: 400;
   color: var(--muted);
   font-size: 0.9em;
+}
+
+.career-education {
+  margin-top: 1.75rem;
+}
+
+.career-subheading {
+  margin: 0 0 0.5rem;
+  font-size: 1.1rem;
 }
 
 .project {
