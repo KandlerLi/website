@@ -431,6 +431,31 @@ h2 {
   margin-bottom: 0.9rem;
 }
 
+.contact-list a {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  color: var(--fg);
+  text-decoration: none;
+  transition: color 0.15s ease;
+}
+
+.contact-list a:visited {
+  color: var(--fg);
+}
+
+.contact-list a:hover,
+.contact-list a:focus-visible {
+  color: var(--accent);
+}
+
+.contact-icon {
+  width: 1.15em;
+  height: 1.15em;
+  flex: none;
+  fill: currentColor;
+}
+
 main {
   padding-bottom: 4rem;
 }
