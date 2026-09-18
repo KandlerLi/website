@@ -306,6 +306,20 @@ main,
   text-decoration: underline;
 }
 
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+}
+
+.profile {
+  color: var(--muted);
+  margin: 0 0 1rem;
+}
+
 .section-intro {
   color: var(--muted);
   margin: 0.25rem 0 1rem;
@@ -354,6 +368,15 @@ h2 {
   font-weight: 400;
   color: var(--muted);
   font-size: 0.9em;
+}
+
+.career-education {
+  margin-top: 1.75rem;
+}
+
+.career-subheading {
+  margin: 0 0 0.5rem;
+  font-size: 1.1rem;
 }
 
 .project {

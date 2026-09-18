@@ -22,10 +22,8 @@
       <span class="brand"><img class="brand-logo" src="favicon-128.png" width="32" height="32" alt="">Julian Kandler</span>
 
       <nav class="site-nav" id="site-nav">
-        <a href="#experience" data-i18n="nav.experience">Experience</a>
-        <a href="#projects" data-i18n="nav.projects">Personal projects</a>
+        <a href="#career" data-i18n="nav.career">Career</a>
         <a href="#skills" data-i18n="nav.skills">Skills</a>
-        <a href="#education" data-i18n="nav.education">Education</a>
         <a href="#personal" data-i18n="nav.personal">Personal</a>
         <a href="#contact" data-i18n="nav.contact">Contact</a>
       </nav>
@@ -59,8 +57,19 @@
   </header>
 
   <main>
-    <section id="experience" aria-labelledby="experience-heading">
-      <h2 id="experience-heading" data-i18n="heading.experience">💼 Experience</h2>
+    <section id="profile" aria-labelledby="profile-heading">
+      <h2 id="profile-heading" class="visually-hidden" data-i18n="heading.profile">👤 Profile</h2>
+      <p class="profile" data-i18n="profile.text">
+        Enterprise Architect with professional IT experience since 2017, focused on Linux,
+        Infrastructure as Code, automation, containerization, and DevOps. Hands-on with Terraform,
+        Ansible, Docker/Podman, GitHub Actions, and AWS — and builds and operates self-hosted
+        infrastructure projects outside of work to explore the same practices end to end,
+        including the site you're looking at right now.
+      </p>
+    </section>
+
+    <section id="career" aria-labelledby="career-heading">
+      <h2 id="career-heading" data-i18n="heading.career">💼 Career</h2>
 
       <article class="employer">
         <h3>Capgemini <span class="dates" data-i18n="cap.h3.dates">Jul 2022 – present</span></h3>
@@ -139,51 +148,21 @@
         <h3>HUK-Coburg Versicherungsgruppe <span class="dates">Feb 2013 – Dec 2013</span></h3>
         <p class="role" data-i18n="huk.role">Internship / Working Student</p>
       </article>
-    </section>
 
-    <section id="projects" aria-labelledby="projects-heading">
-      <h2 id="projects-heading" data-i18n="heading.projects">🛠️ Personal projects</h2>
-      <p class="section-intro" data-i18n="projects.intro">
-        Home-infrastructure projects outside of client work, built to explore DevOps, cloud, and
-        self-hosted systems in practice rather than just in theory.
-      </p>
-
-      <div class="project">
-        <h4 data-i18n="home.proj1.title">Home infrastructure as code</h4>
-        <ul>
-          <li data-i18n="home.proj1.li1">Manage a home server and its services entirely through Terraform and Ansible, version-controlled in Git.</li>
-          <li data-i18n="home.proj1.li2">Provision AWS resources (Route 53, S3, CloudFront, IAM/OIDC) and GitHub repository configuration from the same codebase — no manual changes to live infrastructure.</li>
-          <li data-i18n="home.proj1.li3">This site is deployed exactly this way: Terraform-managed S3 and CloudFront, GitHub Actions CI/CD.</li>
+      <div class="career-education">
+        <h3 class="career-subheading" data-i18n="heading.education">🎓 Education</h3>
+        <ul class="plain-list">
+          <li>
+            <strong>M.Sc. Information Technology and Enterprise Applications</strong>
+            <span class="dates">2015 – 2017</span><br>
+            Hochschule Coburg
+          </li>
+          <li>
+            <strong>B.Sc. Information Technology</strong>
+            <span class="dates">2009 – 2015</span><br>
+            Hochschule Coburg
+          </li>
         </ul>
-        <p class="skills-used">Terraform · Ansible · AWS · GitHub Actions · Debian</p>
-      </div>
-
-      <div class="project">
-        <h4 data-i18n="home.proj2.title">Self-hosted GitHub Actions runner</h4>
-        <ul>
-          <li data-i18n="home.proj2.li1">Designed a fully automated Debian VM, provisioned with Ansible, to host a dedicated self-hosted GitHub Actions runner.</li>
-          <li data-i18n="home.proj2.li2">Configured dedicated disk storage placement for the VM and runner data.</li>
-        </ul>
-        <p class="skills-used">Ansible · Debian · Virtualization · GitHub Actions</p>
-      </div>
-
-      <div class="project">
-        <h4 data-i18n="home.proj3.title">Self-hosted Nextcloud platform</h4>
-        <ul>
-          <li data-i18n="home.proj3.li1">Operate a private Nextcloud instance as a personal cloud-storage replacement, containerized with Docker on a Debian home server.</li>
-          <li data-i18n="home.proj3.li2">Designed the storage architecture across SSD and HDD storage, including Linux permission/UID-GID handling and bind mounts.</li>
-          <li data-i18n="home.proj3.li3">Diagnosed an IPv6 DNS misconfiguration that was silently degrading WebDAV performance — after the fix, an operation that took roughly two minutes completed in about one second.</li>
-        </ul>
-        <p class="skills-used">Docker · Debian · DNS · IPv4/IPv6 · TLS · WebDAV</p>
-      </div>
-
-      <div class="project">
-        <h4 data-i18n="home.proj4.title">Personal finance automation</h4>
-        <ul>
-          <li data-i18n="home.proj4.li1">Built a Python workflow that reads a personal budget spreadsheet, drives a browser via Playwright to render a chart, and uploads the result to Nextcloud automatically.</li>
-          <li data-i18n="home.proj4.li2">Runs on a schedule behind a cheap change-detection check, so it only does the expensive work when the underlying data actually changed.</li>
-        </ul>
-        <p class="skills-used">Python · openpyxl · Playwright · requests · WebDAV</p>
       </div>
     </section>
 
@@ -215,28 +194,14 @@
       </dl>
     </section>
 
-    <section id="education" aria-labelledby="education-heading">
-      <h2 id="education-heading" data-i18n="heading.education">🎓 Education</h2>
-      <ul class="plain-list">
-        <li>
-          <strong>M.Sc. Information Technology and Enterprise Applications</strong>
-          <span class="dates">2015 – 2017</span><br>
-          Hochschule Coburg
-        </li>
-        <li>
-          <strong>B.Sc. Information Technology</strong>
-          <span class="dates">2009 – 2015</span><br>
-          Hochschule Coburg
-        </li>
-      </ul>
-    </section>
-
     <section id="personal" aria-labelledby="personal-heading">
       <h2 id="personal-heading" data-i18n="heading.personal">🏡 Personal</h2>
       <p class="section-intro" data-i18n="personal.text">
         Lives in Filderstadt, near Stuttgart, born in 1989. Shares his home with two
-        cats, Miumiu and Baozi. Enjoys traveling and keeps a large plant collection —
-        with a soft spot for growing chilis.
+        cats, Miumiu and Baozi. Enjoys traveling and keeps a large plant collection with
+        a soft spot for growing chilis — and tinkers with personal home-lab and
+        infrastructure projects in his free time, including the site you're looking at
+        right now.
       </p>
     </section>
 
