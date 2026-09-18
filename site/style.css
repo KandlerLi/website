@@ -426,6 +426,48 @@ main {
   padding-bottom: 4rem;
 }
 
+.site-footer {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 0 1.5rem 3rem;
+  color: var(--muted);
+  font-size: 0.85rem;
+  text-align: center;
+}
+
+.site-footer a {
+  color: var(--muted);
+  text-decoration: underline;
+}
+
+.site-footer a:hover {
+  color: var(--accent);
+}
+
+.legal-page main {
+  padding-top: calc(var(--topbar-height) + 1.5rem);
+}
+
+.legal-page h1 {
+  font-size: 1.6rem;
+}
+
+.legal-page h2 {
+  font-size: 1.1rem;
+  border: none;
+  margin-top: 1.75rem;
+  padding-bottom: 0;
+}
+
+.legal-page address {
+  font-style: normal;
+}
+
+.back-link {
+  display: inline-block;
+  margin-bottom: 1.5rem;
+}
+
 @media (max-width: 30rem) {
   .hero {
     flex-direction: column;
