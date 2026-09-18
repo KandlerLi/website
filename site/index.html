@@ -22,20 +22,19 @@
       <span class="brand"><img class="brand-logo" src="favicon-128.png" width="32" height="32" alt="">Julian Kandler</span>
 
       <nav class="site-nav" id="site-nav">
-        <a href="#profile" data-i18n="nav.profile">Profile</a>
         <a href="#experience" data-i18n="nav.experience">Experience</a>
         <a href="#projects" data-i18n="nav.projects">Personal projects</a>
         <a href="#skills" data-i18n="nav.skills">Skills</a>
         <a href="#education" data-i18n="nav.education">Education</a>
-        <a href="#languages" data-i18n="nav.languages">Languages</a>
+        <a href="#personal" data-i18n="nav.personal">Personal</a>
         <a href="#contact" data-i18n="nav.contact">Contact</a>
       </nav>
 
       <div class="topbar-controls">
         <select class="lang-select" id="lang-select" data-i18n-attr="aria-label" data-i18n="a11y.langSwitcher">
-          <option value="de">DE</option>
-          <option value="en">EN</option>
-          <option value="zh">中文</option>
+          <option value="de">🇩🇪 DE</option>
+          <option value="en">🇬🇧 EN</option>
+          <option value="zh">🇨🇳 中文</option>
         </select>
 
         <button type="button" class="theme-toggle" id="theme-toggle" data-i18n-attr="aria-label" data-i18n="a11y.themeToggle">
@@ -60,17 +59,6 @@
   </header>
 
   <main>
-    <section id="profile" aria-labelledby="profile-heading">
-      <h2 id="profile-heading" class="visually-hidden" data-i18n="heading.profile">👤 Profile</h2>
-      <p class="profile" data-i18n="profile.text">
-        Enterprise Architect with professional IT experience since 2017, focused on Linux,
-        Infrastructure as Code, automation, containerization, and DevOps. Hands-on with Terraform,
-        Ansible, Docker/Podman, GitHub Actions, and AWS — and builds and operates self-hosted
-        infrastructure projects outside of work to explore the same practices end to end,
-        including the site you're looking at right now.
-      </p>
-    </section>
-
     <section id="experience" aria-labelledby="experience-heading">
       <h2 id="experience-heading" data-i18n="heading.experience">💼 Experience</h2>
 
@@ -222,6 +210,8 @@
         <dd>IntelliJ · VS Code (Dev Containers) · WSL2 · Git · GitHub · Jira · Confluence</dd>
         <dt data-i18n="skills.cat10">Methodologies</dt>
         <dd>Agile · Scrum · SAFe · DevOps</dd>
+        <dt data-i18n="skills.cat11">Spoken languages</dt>
+        <dd data-i18n-html="skills.languages">German — native · English — business fluent · Chinese — beginner</dd>
       </dl>
     </section>
 
@@ -241,12 +231,13 @@
       </ul>
     </section>
 
-    <section id="languages" aria-labelledby="languages-heading">
-      <h2 id="languages-heading" data-i18n="heading.languages">🗣️ Languages</h2>
-      <ul class="plain-list">
-        <li data-i18n="lang.german">German — native</li>
-        <li data-i18n="lang.english">English — business fluent</li>
-      </ul>
+    <section id="personal" aria-labelledby="personal-heading">
+      <h2 id="personal-heading" data-i18n="heading.personal">🏡 Personal</h2>
+      <p class="section-intro" data-i18n="personal.text">
+        Lives in Filderstadt, near Stuttgart, born in 1989. Shares his home with two
+        cats, Miumiu and Baozi. Enjoys traveling and keeps a large plant collection —
+        with a soft spot for growing chilis.
+      </p>
     </section>
 
     <section id="contact" aria-labelledby="contact-heading">
