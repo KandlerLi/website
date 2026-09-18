@@ -293,19 +293,6 @@ main,
   color: var(--muted);
 }
 
-.links {
-  margin: 0.5rem 0 0;
-}
-
-.links a {
-  color: var(--accent);
-  text-decoration: none;
-}
-
-.links a:hover {
-  text-decoration: underline;
-}
-
 .visually-hidden {
   position: absolute;
   width: 1px;
