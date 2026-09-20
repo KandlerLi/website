@@ -495,3 +495,48 @@ main {
     text-align: center;
   }
 }
+
+.portrait-button {
+  padding: 0;
+  border: 0;
+  background: none;
+  border-radius: 50%;
+  line-height: 0;
+  cursor: zoom-in;
+}
+
+.portrait-dialog {
+  padding: 0;
+  border: 0;
+  background: none;
+  max-width: 100vw;
+  max-height: 100vh;
+  overflow: visible;
+}
+
+.portrait-dialog::backdrop {
+  background: rgba(0, 0, 0, 0.75);
+}
+
+.portrait-dialog img {
+  display: block;
+  max-width: 92vw;
+  max-height: 92vh;
+  width: auto;
+  height: auto;
+  border-radius: 0.75rem;
+  cursor: zoom-out;
+}
+
+.portrait-dialog[open] {
+  animation: portrait-zoom-in 0.2s ease-out;
+}
+
+@keyframes portrait-zoom-in {
+  from { transform: scale(0.85); opacity: 0; }
+  to { transform: scale(1); opacity: 1; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .portrait-dialog[open] { animation: none; }
+}
