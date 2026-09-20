@@ -47,7 +47,12 @@
   </header>
 
   <header class="hero">
-    <img class="portrait" src="julian.png" alt="Julian Kandler" width="600" height="800">
+    <button type="button" class="portrait-button" id="portrait-open" data-i18n-attr="aria-label" data-i18n="a11y.portraitZoom" aria-label="Enlarge portrait photo" aria-haspopup="dialog">
+      <img class="portrait" src="julian.png" alt="Julian Kandler" width="600" height="800">
+    </button>
+    <dialog class="portrait-dialog" id="portrait-dialog" aria-label="Julian Kandler">
+      <img src="julian_full.png" alt="Julian Kandler" width="1122" height="1402" loading="lazy">
+    </dialog>
     <div>
       <h1>Julian Kandler</h1>
       <p class="title">Enterprise Architect</p>
@@ -247,5 +252,6 @@
   </footer>
 
   <script src="i18n.js"></script>
+  <script src="portrait-zoom.js"></script>
 </body>
 </html>

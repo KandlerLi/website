@@ -60,6 +60,7 @@
       "footer.imprint": "Imprint",
       "footer.privacy": "Privacy policy",
       "a11y.menuToggle": "Toggle navigation menu",
+      "a11y.portraitZoom": "Enlarge portrait photo",
       "a11y.themeToggle": "Toggle color theme",
       "a11y.langSwitcher": "Choose language"
     },
@@ -121,6 +122,7 @@
       "footer.imprint": "Impressum",
       "footer.privacy": "Datenschutz",
       "a11y.menuToggle": "Navigationsmenü umschalten",
+      "a11y.portraitZoom": "Porträtfoto vergrößern",
       "a11y.themeToggle": "Farbschema umschalten",
       "a11y.langSwitcher": "Sprache wählen"
     },
@@ -182,6 +184,7 @@
       "footer.imprint": "法律声明",
       "footer.privacy": "隐私政策",
       "a11y.menuToggle": "切换导航菜单",
+      "a11y.portraitZoom": "放大头像照片",
       "a11y.themeToggle": "切换配色主题",
       "a11y.langSwitcher": "选择语言"
     }
