@@ -17,22 +17,13 @@ data "aws_kms_alias" "shared" {
 #trivy:ignore:AVD-AWS-0320
 resource "aws_s3_bucket" "site" {
   # AWS-0320 (bucket name not DNS-compliant) deliberately NOT fixed --
-  # stays www.jkandler.de. A rename to jkandler-website was attempted
-  # live 2026-09-14 and reverted after real production impact: two
-  # failed applies (Terraform's default destroy-then-create replacement
-  # order tore down the old bucket's policy/access-block/ownership-
-  # controls before failing to delete the non-empty bucket; then
-  # force_destroy didn't help because it wasn't recorded on the *old*
-  # instance's own state), followed by CloudFront's origin briefly
-  # pointing at a bucket that no longer existed, a stuck state lock from
-  # a credential expiry mid-apply, and a manual `terraform import`/state
-  # surgery to recover. Suppressed rather than retried: the check's own
+  # stays www.jkandler.de. A rename attempt caused a real production
+  # incident -- see docs/home-infra-docs' ADR 0022 for the full
+  # recovery story. Suppressed rather than retried: the check's own
   # underlying concern (TLS certificate name matching on dotted bucket
-  # names) never applied to this architecture in the first place --
-  # this bucket is only ever reached via CloudFront's Origin Access
-  # Control (signed SigV4 requests), never raw virtual-hosted-style
-  # HTTPS directly -- so the risk of repeating this incident for a fix
-  # with no real security benefit here isn't worth it.
+  # names) never applied here in the first place -- this bucket is
+  # only ever reached via CloudFront's Origin Access Control, never
+  # raw virtual-hosted-style HTTPS directly.
   bucket = var.domain_name
 
   # Left in place after the recovery above -- harmless on a bucket that
