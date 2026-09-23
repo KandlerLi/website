@@ -1,13 +1,11 @@
 variable "aws_region" {
   description = "AWS region for the S3 bucket that holds the site content"
   type        = string
-  default     = "eu-central-1"
 }
 
 variable "domain_name" {
   description = "DNS name the site is served under"
   type        = string
-  default     = "www.jkandler.de"
 
   validation {
     condition = length(var.domain_name) <= 253 && length(split(".", var.domain_name)) >= 2 && alltrue([
@@ -30,8 +28,4 @@ variable "route53_zone_id" {
 variable "tags" {
   description = "Tags applied to supported AWS resources"
   type        = map(string)
-  default = {
-    ManagedBy = "Terraform"
-    Project   = "website"
-  }
 }
