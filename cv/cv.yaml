@@ -1,0 +1,107 @@
+cv:
+  name: Julian Kandler
+  headline: Enterprise Architect — Infrastructure, Backend, Frontend & CI/CD
+  location: Filderstadt / Stuttgart, Germany
+  email: julian.kandler@outlook.com
+  phone: "+49 151 18897988"
+  website: https://www.jkandler.de
+  social_networks:
+    - network: GitHub
+      username: KandlerLi
+    - network: LinkedIn
+      username: julian-kandler-283b5b157
+  sections:
+    experience:
+      - company: Capgemini
+        position: Enterprise Architect (Cloud Architect)
+        start_date: 2022-07
+        end_date: present
+        location: Germany
+        highlights:
+          - "Infrastructure change coordination (Apr 2024 – present): coordinate infrastructure changes, imports, and reshaping as Cloud Architect."
+          - "Vehicle data platform reliability (Sep 2023 – Dec 2023): made the platform production-ready for go-live; built automated snapshots and continuous database backups; wrote disaster-recovery runbooks; set up monitoring and alerting. *Terraform, Datadog, AWS Backup, GitHub Actions*"
+          - "Multi-account AWS infrastructure rollout (Jul 2022 – Aug 2023): designed a scalable solution for rolling out infrastructure across up to 400 AWS accounts; led conceptualization and development. *Terraform, GitHub Actions, AWS API Gateway, EventBridge, CodeBuild*"
+      - company: Exxeta AG
+        position: Senior Consultant / Consultant
+        start_date: 2017-01
+        end_date: 2022-06
+        location: Germany
+        highlights:
+          - "Vehicle workshop appointment portal (Feb 2020 – Jun 2022): built a new portal from the ground up, front-end and back-end, with CI/CD-provisioned infrastructure and automated testing/monitoring. *Angular, Spring Boot, Kotlin, Concourse, New Relic, AWS*"
+          - "Retail sample planning portal (May – Dec 2019): built a portal to plan and control retail sample scheduling. *Angular, Spring Boot, PCF*"
+          - "Customer vehicle-profile portal (Apr 2017 – Apr 2019): extended a customer portal for managing vehicle profiles. *Angular, Spring Boot, PCF*"
+          - "Reusable CMS components (Jan – Mar 2017): built new, reusable components for a content-management system. *Adobe AEM, Java, JavaScript*"
+      - company: HUK-Coburg Versicherungsgruppe
+        position: Internship / Working Student
+        start_date: 2013-02
+        end_date: 2013-12
+        location: Germany
+    education:
+      - institution: Hochschule Coburg
+        area: Information Technology and Enterprise Applications
+        degree: M.Sc.
+        start_date: 2015-09
+        end_date: 2017-06
+      - institution: Hochschule Coburg
+        area: Information Technology
+        degree: B.Sc.
+        start_date: 2009-09
+        end_date: 2015-06
+    personal_projects:
+      - name: Home infrastructure as code
+        date: Ongoing
+        summary: Home server and its services managed entirely through Terraform and Ansible, version-controlled in Git; AWS (Route 53, S3, CloudFront, IAM/OIDC) and GitHub repo configuration from the same codebase, no manual changes to live infrastructure. This site is deployed the same way. *Terraform, Ansible, AWS, GitHub Actions, Debian*
+      - name: Self-hosted GitHub Actions runner
+        date: Ongoing
+        summary: A fully automated Debian VM, provisioned with Ansible, hosting a dedicated self-hosted runner with dedicated disk storage placement. *Ansible, Debian, Virtualization, GitHub Actions*
+      - name: Self-hosted Nextcloud platform
+        date: Ongoing
+        summary: Private Nextcloud as a cloud-storage replacement, containerized with Docker; diagnosed an IPv6 DNS misconfiguration silently degrading WebDAV (~2 min operation dropped to ~1 sec after the fix). *Docker, Debian, DNS, IPv4/IPv6, TLS, WebDAV*
+      - name: Personal finance automation
+        date: Ongoing
+        summary: A Python workflow that reads a budget spreadsheet, drives a browser via Playwright to render a chart, and uploads the result to Nextcloud, on a schedule behind a cheap change-detection check. *Python, openpyxl, Playwright, requests, WebDAV*
+    skills:
+      - label: Infrastructure & Cloud
+        details: AWS (API Gateway, EKS, RDS, Lambda, Route 53, S3, CloudFront, CloudWatch, SNS, SES, Secrets Manager, Fargate, CodePipeline, IAM/OIDC), Docker, Podman, Kubernetes/k3s, Terraform, Ansible, Traefik
+      - label: Linux & Systems
+        details: Debian, SUSE Linux Enterprise, Bash/shell scripting, systemd, libvirt/KVM, DNS/TLS/network troubleshooting, IPv4/IPv6
+      - label: CI/CD
+        details: GitHub Actions (incl. self-hosted runners), Concourse, Jenkins
+      - label: Observability
+        details: Prometheus, Grafana, Alertmanager, Datadog, New Relic
+      - label: Security
+        details: GPG, pass, SOPS, Trivy, Black Duck
+      - label: Databases
+        details: PostgreSQL
+      - label: Languages & Frameworks
+        details: Java, Kotlin, Python, Spring Boot, Maven, Gradle, TypeScript, JavaScript, Angular, Node.js
+      - label: Methodologies
+        details: Agile, Scrum, SAFe, DevOps
+    languages:
+      - label: German
+        details: Native
+      - label: English
+        details: Business fluent
+
+design:
+  theme: classic
+  colors:
+    name: rgb(30, 30, 30)
+    headline: rgb(90, 90, 90)
+    connections: rgb(30, 30, 30)
+    section_titles: rgb(30, 30, 30)
+    links: rgb(30, 30, 30)
+
+locale:
+  language: english
+
+settings:
+  current_date: today
+  pdf_title: Julian Kandler - CV
+  render_command:
+    output_folder: build
+    pdf_path: OUTPUT_FOLDER/cv.pdf
+    typst_path: OUTPUT_FOLDER/cv.typ
+    dont_generate_markdown: true
+    dont_generate_html: true
+    dont_generate_png: true
