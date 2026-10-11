@@ -18,7 +18,7 @@ data "aws_kms_alias" "shared" {
 resource "aws_s3_bucket" "site" {
   # AWS-0320 (bucket name not DNS-compliant) deliberately NOT fixed --
   # stays www.jkandler.de. A rename attempt caused a real production
-  # incident -- see docs/home-infra-docs' ADR 0022 for the full
+  # incident -- see home-infra-docs' ADR 0022 for the full
   # recovery story. Suppressed rather than retried: the check's own
   # underlying concern (TLS certificate name matching on dotted bucket
   # names) never applied here in the first place -- this bucket is
