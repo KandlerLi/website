@@ -25,6 +25,43 @@ name.
 The existing Route53 hosted zone is deliberately not created here, same as
 `dyndns` — its ID is a required input.
 
+## Extensionless URLs
+
+Pages can be linked without a file extension (e.g. `/card`) although the
+site is plain static files. A CloudFront function
+(`cloudfront-functions/url-rewrite.js`) rewrites extensionless URIs to
+their `.html` file and directory-style URIs to their `index.html` at the
+edge, before the request reaches S3.
+
+## Security scan exceptions and hardening
+
+trivy runs on every PR. Three findings are suppressed on purpose:
+
+- **AWS-0320, bucket name not DNS-compliant.** The bucket stays
+  `www.jkandler.de`. The check's concern (TLS name matching on dotted
+  bucket names) doesn't apply: the bucket is only ever reached through
+  CloudFront's Origin Access Control, never directly over
+  virtual-hosted-style HTTPS. A rename attempt caused a production
+  incident, see
+  [ADR 0022](https://github.com/KandlerLi/home-infra-docs/blob/main/docs/adr/0022-trivy-config-scanning-and-public-repo-tradeoff.md).
+  `force_destroy = true` stays from that recovery, so a future
+  replacement of the bucket can't hit the same trap.
+- **AWS-0011, no WAF.** A WAFv2 web ACL costs about $5-6/month plus
+  per-request charges, out of proportion to this account's $10/month
+  budget for a static site with no forms, logins or backend.
+- **AWS-0010, no CloudFront access logs.** Classic logging needs Object
+  Ownership switched back to "Bucket owner preferred" so ACLs can be
+  granted (a hardening regression); v2 logging needs a Firehose delivery
+  stream and IAM role. Neither is worth it for a low-traffic personal
+  site.
+
+The other findings are fixed: the bucket is versioned so a bad
+`aws s3 sync --delete` can be rolled back (AWS-0090), logs its own access
+under a separate prefix like `terraform-state`'s buckets do (AWS-0089),
+and is encrypted with the shared customer managed key from
+[`terraform-state`](https://github.com/KandlerLi/terraform-state), looked
+up by its alias (AWS-0132).
+
 ## Prerequisites
 
 - Terraform 1.10 or newer

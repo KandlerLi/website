@@ -3,33 +3,15 @@ data "aws_route53_zone" "selected" {
   private_zone = false
 }
 
-# --- S3 origin -----------------------------------------------------------
-# Private bucket, no static-website-hosting endpoint, no public bucket
-# policy. CloudFront reaches it only through Origin Access Control.
-
-# KandlerLi/terraform-state's own shared CMK, looked up by its fixed
-# alias -- fixes trivy's AWS-0132 below. Needs kms:ListAliases/
-# DescribeKey on this repo's own apply/plan roles (repo-infra#11).
+# Shared CMK from terraform-state; plan/apply roles need kms:ListAliases and kms:DescribeKey.
 data "aws_kms_alias" "shared" {
   name = "alias/shared"
 }
 
+# Dotted bucket name kept on purpose: see README, "Security scan exceptions and hardening".
 #trivy:ignore:AVD-AWS-0320
 resource "aws_s3_bucket" "site" {
-  # AWS-0320 (bucket name not DNS-compliant) deliberately NOT fixed --
-  # stays www.jkandler.de. A rename attempt caused a real production
-  # incident -- see KandlerLi/home-infra-docs' ADR 0022 for the full
-  # recovery story. Suppressed rather than retried: the check's own
-  # underlying concern (TLS certificate name matching on dotted bucket
-  # names) never applied here in the first place -- this bucket is
-  # only ever reached via CloudFront's Origin Access Control, never
-  # raw virtual-hosted-style HTTPS directly.
-  bucket = var.domain_name
-
-  # Left in place after the recovery above -- harmless on a bucket that
-  # isn't being renamed, and means any *future* genuine replacement of
-  # this resource (for an unrelated reason) won't hit the same
-  # unrecorded-force_destroy trap.
+  bucket        = var.domain_name
   force_destroy = true
 }
 
@@ -42,8 +24,6 @@ resource "aws_s3_bucket_public_access_block" "site" {
   restrict_public_buckets = true
 }
 
-# Fixes trivy's AWS-0090 -- lets a bad `aws s3 sync --delete` be rolled
-# back from a noncurrent version instead of the content just being gone.
 resource "aws_s3_bucket_versioning" "site" {
   bucket = aws_s3_bucket.site.id
 
@@ -63,9 +43,6 @@ resource "aws_s3_bucket_server_side_encryption_configuration" "site" {
   }
 }
 
-# Fixes trivy's AWS-0089 -- self-logging under a distinct prefix, same
-# pattern as terraform-state's own buckets. No dedicated second bucket
-# for a personal site's own access logs.
 resource "aws_s3_bucket_logging" "site" {
   bucket        = aws_s3_bucket.site.id
   target_bucket = aws_s3_bucket.site.id
@@ -112,9 +89,6 @@ resource "aws_s3_bucket_policy" "site" {
   policy = data.aws_iam_policy_document.site_bucket.json
 }
 
-# --- Certificate -----------------------------------------------------------
-# Must live in us-east-1 for CloudFront regardless of where the bucket is.
-
 resource "aws_acm_certificate" "site" {
   provider = aws.us_east_1
 
@@ -150,13 +124,6 @@ resource "aws_acm_certificate_validation" "site" {
   validation_record_fqdns = [for record in aws_route53_record.cert_validation : record.fqdn]
 }
 
-# --- CloudFront function ----------------------------------------------------
-# Lets pages be linked without a visible file extension (e.g. /card) even
-# though the site is plain static files with no build step -- rewrites
-# extensionless URIs to their .html file and directory-style URIs to their
-# index.html, at the CloudFront edge before the S3 origin ever sees the
-# request.
-
 resource "aws_cloudfront_function" "url_rewrite" {
   name    = "${replace(var.domain_name, ".", "-")}-url-rewrite"
   runtime = "cloudfront-js-2.0"
@@ -165,21 +132,7 @@ resource "aws_cloudfront_function" "url_rewrite" {
   code    = file("${path.module}/cloudfront-functions/url-rewrite.js")
 }
 
-# --- CloudFront distribution -----------------------------------------------
-
-# AWS-0011 (no WAF): a real WAFv2 web ACL runs ~$5-6/month base plus
-# per-request charges, disproportionate to this account's $10/month
-# budget for a static personal CV site with no forms, logins, or
-# dynamic backend -- a very small attack surface for a WAF to
-# meaningfully reduce.
-#
-# AWS-0010 (no access logging): both real fixes have their own cost --
-# classic logging needs Object Ownership switched from "Bucket owner
-# enforced" back to "Bucket owner preferred" so ACLs can be granted to
-# the log-delivery principal (a real hardening regression), and the
-# newer Firehose-based v2 logging adds a whole delivery-stream + IAM
-# role pipeline. Neither is proportionate to the investigative value of
-# access logs for a low-traffic personal site.
+# No WAF, no access logs: cost out of proportion, see README.
 #trivy:ignore:AVD-AWS-0011
 #trivy:ignore:AVD-AWS-0010
 resource "aws_cloudfront_distribution" "site" {
@@ -222,8 +175,6 @@ resource "aws_cloudfront_distribution" "site" {
     minimum_protocol_version = "TLSv1.2_2021"
   }
 }
-
-# --- DNS ---------------------------------------------------------------
 
 resource "aws_route53_record" "site" {
   zone_id = var.route53_zone_id

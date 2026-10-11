@@ -17,8 +17,7 @@ provider "aws" {
   }
 }
 
-# CloudFront requires certificates to exist in us-east-1 regardless of where
-# the rest of the stack (S3 bucket, Route53 zone) lives.
+# CloudFront only accepts certificates from us-east-1.
 provider "aws" {
   alias  = "us_east_1"
   region = "us-east-1"
