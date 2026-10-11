@@ -7,7 +7,7 @@ data "aws_route53_zone" "selected" {
 # Private bucket, no static-website-hosting endpoint, no public bucket
 # policy. CloudFront reaches it only through Origin Access Control.
 
-# bootstrap/terraform-state's own shared CMK, looked up by its fixed
+# KandlerLi/terraform-state's own shared CMK, looked up by its fixed
 # alias -- fixes trivy's AWS-0132 below. Needs kms:ListAliases/
 # DescribeKey on this repo's own apply/plan roles (repo-infra#11).
 data "aws_kms_alias" "shared" {
@@ -18,7 +18,7 @@ data "aws_kms_alias" "shared" {
 resource "aws_s3_bucket" "site" {
   # AWS-0320 (bucket name not DNS-compliant) deliberately NOT fixed --
   # stays www.jkandler.de. A rename attempt caused a real production
-  # incident -- see docs/home-infra-docs' ADR 0022 for the full
+  # incident -- see KandlerLi/home-infra-docs' ADR 0022 for the full
   # recovery story. Suppressed rather than retried: the check's own
   # underlying concern (TLS certificate name matching on dotted bucket
   # names) never applied here in the first place -- this bucket is

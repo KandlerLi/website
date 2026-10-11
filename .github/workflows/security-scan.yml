@@ -1,7 +1,7 @@
 name: Security scan
 
 # trivy config IaC misconfiguration scan -- first step of the
-# workspace-level security audit (PARKED.md). Its own workflow, separate
+# workspace-level security audit. Its own workflow, separate
 # from checks.yml/apply.yml, so a finding on the push trigger below can
 # never block an apply (apply.yml has no needs: on this job either way).
 # See gha-common's own README.md for the reusable workflow's full
@@ -11,7 +11,7 @@ name: Security scan
 # check (blocking PR merges on any finding, via
 # required_status_check_contexts in repo-infra's own config.yml) --
 # this repo is confirmed clean (0 findings) already, after the bucket-
-# rename saga (PARKED.md's "Security audit" entry) settled on
+# rename saga (the private task list's "Security audit" entry) settled on
 # suppressing AWS-0320 rather than retrying it.
 
 on:
@@ -26,7 +26,7 @@ jobs:
     # Moved to a GitHub-hosted runner 2026-09-15 -- this scan needs no AWS
     # credentials or in-cluster access, only outbound internet, so there's
     # no reason to contend with apply.yml's terraform job for this repo's
-    # single self-hosted runner replica (PARKED.md's "Trivy scan and
+    # single self-hosted runner replica (the private task list's "Trivy scan and
     # terraform apply serialize on the same self-hosted runner").
     with:
       runs_on: '["ubuntu-latest"]'
