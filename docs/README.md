@@ -104,14 +104,11 @@ CloudFront cache invalidation.
 
 ## Runner
 
-Uses the self-hosted home runner (`[self-hosted, home, debian]`), same as
-`dyndns`. Originally deployed on GitHub-hosted runners specifically to
-keep the deploy pipeline independent of home-network uptime, since the
-site's own reachability (CloudFront/S3) already doesn't depend on it —
-switched to self-hosted on 2026-08-23 at the user's explicit request,
-after being shown that tradeoff directly: a homeserver outage now also
-blocks shipping a content or infra fix to this site, not just home
-services. See ADR 0016's Update section.
+GitHub-hosted (`ubuntu-latest`), through `gha-common`'s reusable workflows
+since its v2.0.0: nothing here needs the home network.
+From 2026-08-23 until then it ran on the self-hosted home runner (ADR
+0016's Update section), so a homeserver outage also blocked deploys here.
+That dependency is gone again.
 
 ## Local validation
 
